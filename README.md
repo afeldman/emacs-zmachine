@@ -1,5 +1,7 @@
 # Emacs ZMachine
 
+![Logo](logo.svg)
+
 A ZIL (Zork Implementation Language) engine for Emacs, enabling classic interactive fiction games written in ZIL to run natively in Emacs.
 
 ## Features

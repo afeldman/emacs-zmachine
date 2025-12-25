@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background (Infocom style) -->
+  <circle cx="100" cy="100" r="95" fill="#1a1a2e" stroke="#00d9ff" stroke-width="3"/>
+  
+  <!-- Frame -->
+  <rect x="25" y="25" width="150" height="150" rx="8" fill="#0f0f1e" stroke="#00d9ff" stroke-width="2"/>
+  
+  <!-- Terminal header -->
+  <rect x="25" y="25" width="150" height="30" rx="8" fill="#00d9ff"/>
+  <text x="40" y="45" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#0f0f1e">Z-Machine</text>
+  
+  <!-- Code/text display area -->
+  <rect x="35" y="65" width="130" height="100" fill="#001a00" stroke="#00d9ff" stroke-width="1"/>
+  
+  <!-- Animated "cursor" lines (representing Z-code) -->
+  <text x="45" y="80" font-family="monospace" font-size="8" fill="#00ff00">> LOOK</text>
+  <text x="45" y="92" font-family="monospace" font-size="7" fill="#00dd00">You are in a room.</text>
+  <text x="45" y="103" font-family="monospace" font-size="7" fill="#00dd00">Obvious exits: N S E W</text>
+  
+  <!-- Memory indicator (stack/heap visual) -->
+  <rect x="45" y="115" width="6" height="30" fill="#00dd00" opacity="0.7"/>
+  <rect x="55" y="118" width="6" height="27" fill="#00dd00" opacity="0.6"/>
+  <rect x="65" y="120" width="6" height="25" fill="#00dd00" opacity="0.5"/>
+  
+  <!-- Input line with cursor -->
+  <line x1="45" y1="150" x2="110" y2="150" stroke="#00dd00" stroke-width="1"/>
+  <rect x="113" y="148" width="3" height="6" fill="#00dd00">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Corner decorations (Infocom retro style) -->
+  <circle cx="35" cy="35" r="2" fill="#00d9ff" opacity="0.7"/>
+  <circle cx="165" cy="35" r="2" fill="#00d9ff" opacity="0.7"/>
+  <circle cx="35" cy="165" r="2" fill="#00d9ff" opacity="0.7"/>
+  <circle cx="165" cy="165" r="2" fill="#00d9ff" opacity="0.7"/>
+</svg>
