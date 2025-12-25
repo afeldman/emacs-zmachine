@@ -215,6 +215,24 @@ FDESC: First description"
               (pos (cl-position obj-id siblings)))
     (nth (1+ pos) siblings)))
 
+(defun zil-visible? (obj-id location)
+  "Check if OBJ-ID is visible from LOCATION.
+Objects are visible if:
+  1. They are directly in LOCATION, OR
+  2. They are in a container in LOCATION and container has OPENBIT set, OR
+  3. They are in PLAYER's inventory (LOCATION is PLAYER's parent)"
+  (let ((parent (zil-object-parent obj-id)))
+    (cond
+     ;; Directly in location
+     ((eq parent location) t)
+     ;; In a container that's in location and container is open
+     ((and parent
+           (eq (zil-object-parent parent) location)
+           (or (zil-fset? parent 'OPENBIT)
+               (zil-fset? parent 'TRANSBIT))) t)
+     ;; Otherwise not visible
+     (t nil))))
+
 ;;; ========== I/O SYSTEM ==========
 
 (defun zil-print (text)
@@ -451,6 +469,14 @@ MESSAGE: Death message string."
   (zil-verb-register 'OPEN :open)
   (zil-verb-register 'CLOSE :close)
   (zil-verb-register 'READ :read)
+  (zil-verb-register 'MOVE :move)
+  (zil-verb-register 'LIFT :lift)
+  (zil-verb-register 'RAISE :raise)
+  (zil-verb-register 'TURN :turn)
+  (zil-verb-register 'ON :on)
+  (zil-verb-register 'TURNOFF :turnoff)
+  (zil-verb-register 'OFF :off)
+  (zil-verb-register 'LIGHT :light)
   (zil-verb-register 'ATTACK :attack)
   (zil-verb-register 'KILL :kill))
 
