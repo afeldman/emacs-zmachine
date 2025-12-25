@@ -438,10 +438,8 @@ MESSAGE: Death message string."
   (setq zil-dead nil)
   (setq zil-won nil)
   
-  ;; Create output buffer
-  (with-current-buffer (get-buffer-create zil-output-buffer)
-    (erase-buffer)
-    (special-mode))
+  ;; Create output buffer with zil-mode
+  (zil-setup-buffer)
   
   ;; Register standard verbs
   (zil-verb-register 'TAKE :take)
