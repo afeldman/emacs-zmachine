@@ -220,8 +220,13 @@ FDESC: First description"
 (defun zil-print (text)
   "Print TEXT to game buffer (ZIL PRINT)."
   (with-current-buffer (get-buffer-create zil-output-buffer)
-    (goto-char (point-max))
-    (insert (format "%s" text)))
+    (let ((was-at-end (= (point) (point-max))))
+      (save-excursion
+        (goto-char (point-max))
+        (let ((inhibit-read-only t))
+          (insert (format "%s" text))))
+      (when was-at-end
+        (goto-char (point-max)))))
   text)
 
 (defun zil-printi (text)
@@ -450,6 +455,47 @@ MESSAGE: Death message string."
   (zil-verb-register 'READ :read)
   (zil-verb-register 'ATTACK :attack)
   (zil-verb-register 'KILL :kill))
+
+;;; ========== ZIL GAME MODE ==========
+
+(defvar zil-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "RET") 'zil-send-input)
+    map)
+  "Keymap for ZIL game mode.")
+
+(defvar zil-input-start-marker nil
+  "Marker for start of input area.")
+
+(defvar zil-command-callback nil
+  "Callback function to process commands.")
+
+(define-derived-mode zil-mode fundamental-mode "ZIL"
+  "Major mode for ZIL text adventure games.
+
+\\{zil-mode-map}"
+  (setq-local zil-input-start-marker (point-marker))
+  (set-marker-insertion-type zil-input-start-marker nil))
+
+(defun zil-send-input ()
+  "Send the current input line to the game."
+  (interactive)
+  (when (>= (point) zil-input-start-marker)
+    (let ((input (buffer-substring-no-properties zil-input-start-marker (point-max))))
+      (goto-char (point-max))
+      (insert "\n")
+      (when zil-command-callback
+        (funcall zil-command-callback input))
+      (setq zil-input-start-marker (point-marker))
+      (set-marker-insertion-type zil-input-start-marker nil))))
+
+(defun zil-setup-buffer ()
+  "Setup the ZIL game buffer with proper mode."
+  (with-current-buffer (get-buffer-create zil-output-buffer)
+    (unless (eq major-mode 'zil-mode)
+      (zil-mode)
+      (setq buffer-read-only nil))
+    (current-buffer)))
 
 (provide 'zil-core)
 ;;; zil-core.el ends here
