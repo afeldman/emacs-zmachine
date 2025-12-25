@@ -20,7 +20,7 @@ A ZIL (Zork Implementation Language) engine for Emacs, enabling classic interact
 Add to your `~/.emacs.d/init.el`:
 
 ```elisp
-(add-to-list 'load-path "~/Projects/priv/emacs-zmachine/elisp")
+(add-to-list 'load-path "<PATH TO>/emacs-zmachine/elisp")
 (require 'zil-core)
 ```
 
