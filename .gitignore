@@ -1,0 +1,22 @@
+# Emacs
+*~
+*.elc
+*.backup
+.#*
+\#*\#
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+*.tar
+*.gz
+dist/
+
+# Testing
+coverage/
