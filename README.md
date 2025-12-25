@@ -15,6 +15,42 @@ A ZIL (Zork Implementation Language) engine for Emacs, enabling classic interact
 
 ## Installation
 
+### Via straight.el (Recommended)
+
+Add to your `~/.emacs.d/init.el`:
+
+```elisp
+;; Bootstrap straight.el (if not already installed)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Install emacs-zmachine directly from GitHub
+(straight-use-package
+ '(emacs-zmachine
+   :type git :host github :repo "afeldman/emacs-zmachine"
+   :files ("elisp/*.el" "emacs-zmachine-pkg.el")))
+```
+
+### With use-package
+
+```elisp
+(straight-use-package 'use-package)
+
+(use-package emacs-zmachine
+  :straight (:host github :repo "afeldman/emacs-zmachine"
+             :files ("elisp/*.el" "emacs-zmachine-pkg.el")))
+```
+
 ### Manual
 
 Add to your `~/.emacs.d/init.el`:
